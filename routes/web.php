@@ -20,7 +20,7 @@ Route::get('/', function () {
 
 Route::get('/products', [ProductController::class, 'index'])->name('products');
 Route::post('/create-product', [ProductController::class, 'store'])->name('product.create');
-
+Route::put('/update-product/{product_id}', [ProductController::class, 'update'])->name('product.update');
 
 Route::get('/currencies', [CurrencyController::class, 'index'])->name('currencies');
 Route::post('/create-currency', [CurrencyController::class, 'store'])->name('currency.create');
@@ -35,10 +35,8 @@ Route::get('/invoice', [InvoiceController::class, 'index'])->name('invoice');
 Route::post('/create-invoice', [InvoiceController::class, 'store'])->name('invoice.create');
 Route::post('/resend-invoice/{invoice}', [InvoiceController::class, 'resend'])->name('invoice.resend');
 
-
 Route::get('/coupon', [CouponController::class, 'index'])->name('coupon');
 Route::post('/create-coupon', [CouponController::class, 'store'])->name('coupon.create');
-
 
 Route::post('/add-to-cart/{price}', [CartController::class, 'store'])->name('add.cart');
 Route::post('/destroy-cart', [CartController::class, 'destroy'])->name('destroy.cart');

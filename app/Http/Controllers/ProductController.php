@@ -28,4 +28,20 @@ class ProductController extends Controller
         ]); 
         return back()->with('success', 'Product has been created!');
     }
+
+    public function update(Request $request, $product_id){
+        $stripe = new StripeClient(config('app.stripe'));
+        $stripe->products->update(
+            $product_id,
+            [
+                'name' => $request->name,
+            ]
+        );
+
+        Product::where('stripe_id', $product_id)->update([
+            'name' => $request->name
+        ]);
+
+        return back()->with('success', 'Product has been updated!');
+    }
 }

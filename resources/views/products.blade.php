@@ -21,7 +21,7 @@
                 </div>
             </form>
             @if (count($products) && $products != null)
-                <table class="w-full rounded-lg border border-gray-100 overflow-hidden">
+                <table class="w-full rounded-lg border border-gray-100">
                     <tr class="bg-gray-800 text-white">
                         <th class="text-start px-4 py-2">StripeID</th>
                         <th class="text-start">Name</th>
@@ -41,7 +41,21 @@
                             @endif
                             </td>
                             <td class="text-end">{{ $item->created_at->diffForHumans() }}</td>
-                            <td class="text-end px-4 text-blue-500 underline">Edit</td>
+                            <td class="text-end px-4 text-blue-500 underline">
+                                <div x-data="{ open: false }" class="relative">
+                                    <button @click="open = ! open">Edit</button>
+                                 
+                                    <div x-show="open" @click.outside="open = false">
+                                        <form action="{{ route('product.update', $item->stripe_id) }}" method="post" class="bg-white p-3 min-w-[300px] rounded-lg absolute shadow-lg z-20">
+                                            @method('PUT')
+                                            @csrf
+                                            <input type="text" name="name" value="{{ $item->name }}" placeholder="Product Name"
+                                            class="p-3 rounded-lg border border-gray-100 mb-2 w-full" required>
+                                            <button type="submit" class="py-2 w-full bg-blue-600 text-white">Update</button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </td>
                         </tr>
                     @endforeach
                 </table>
