@@ -39,7 +39,8 @@ class ProductController extends Controller
         );
 
         Product::where('stripe_id', $product_id)->update([
-            'name' => $request->name
+            'name' => $request->name,
+            'is_at' 
         ]);
 
         return back()->with('success', 'Product has been updated!');
