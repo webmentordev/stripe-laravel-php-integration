@@ -24,6 +24,7 @@ Route::put('/update-product/{product_id}', [ProductController::class, 'update'])
 
 Route::get('/currencies', [CurrencyController::class, 'index'])->name('currencies');
 Route::post('/create-currency', [CurrencyController::class, 'store'])->name('currency.create');
+Route::put('/update-currency/{currency}', [CurrencyController::class, 'update'])->name('currency.update');
 
 Route::get('/price', [PriceController::class, 'index'])->name('price');
 Route::post('/create-price', [PriceController::class, 'store'])->name('price.create');

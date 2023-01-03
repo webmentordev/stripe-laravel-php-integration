@@ -24,4 +24,17 @@ class CurrencyController extends Controller
         ]);
         return back()->with('success', 'Currency has been created!');
     }
+
+    public function update(Request $request, $id){
+        $this->validate($request, [
+            'name' => 'required',
+            'code' => 'required|max:3',
+        ]);
+        Currency::find($id)->update([
+            'name' => $request->name,
+            'code' => $request->code
+        ]);
+        return back()->with('success', 'Currency has been updated!');
+    }
+    
 }

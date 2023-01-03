@@ -44,7 +44,6 @@
                             <td class="text-end px-4 text-blue-500 underline">
                                 <div x-data="{ open: false }" class="relative">
                                     <button @click="open = ! open">Edit</button>
-                                 
                                     <div x-show="open" @click.outside="open = false">
                                         <form action="{{ route('product.update', $item->stripe_id) }}" method="post" class="bg-white p-3 min-w-[300px] rounded-lg absolute shadow-lg z-20">
                                             @method('PUT')
