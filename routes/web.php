@@ -28,6 +28,7 @@ Route::put('/update-currency/{currency}', [CurrencyController::class, 'update'])
 
 Route::get('/price', [PriceController::class, 'index'])->name('price');
 Route::post('/create-price', [PriceController::class, 'store'])->name('price.create');
+Route::put('/update-price/{price_id}', [PriceController::class, 'update'])->name('price.update');
 
 Route::get('/paymentlink', [PaymentLinkController::class, 'index'])->name('paymentlink');
 Route::post('/create-paymentlink', [PaymentLinkController::class, 'store'])->name('paymentlink.create');

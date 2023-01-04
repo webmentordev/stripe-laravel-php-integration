@@ -42,4 +42,36 @@ class PriceController extends Controller
             return back()->with('failed', 'Price must be greater then Zero');
         }
     }
+
+    public function update(Request $request, $price_id){
+        $this->validate($request, [
+            'price' => 'required|numeric'
+        ]);
+
+        $stripe = new StripeClient(config('app.stripe'));
+
+        $price_data = $stripe->prices->retrieve($price_id, []);
+
+        $result = $stripe->prices->create(array_filter([
+            'unit_amount' => $request->price * 100,
+            'currency' => $request->currency != null ? $request->currency : $price_data['currency'],
+            'product' => $price_data['product'],
+        ]));
+
+        $stripe->prices->update(
+            $price_id,
+            [ 
+                'active' => false 
+            ]
+        );
+
+        Price::where('price_id', $price_id)->update(array_filter([
+            'price_id' => $result['id'],
+            'price' => $request->price,
+            'currency' => $request->currency
+        ]));
+        
+        return back()->with('success', 'Price has been updated!');
+        
+    }
 }
